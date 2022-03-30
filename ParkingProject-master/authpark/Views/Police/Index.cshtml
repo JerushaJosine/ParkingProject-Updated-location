@@ -1,0 +1,68 @@
+﻿@model IEnumerable<authpark.Models.Parking>
+
+@{ ViewBag.Title = "Index"; }
+<h2>Parking List</h2>
+
+ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location_Table.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicalRegNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckinTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckoutTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location_Table.Price)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParkingId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Location_Table.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.VehicalRegNo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CheckinTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CheckoutTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParkingStatus)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Location_Table.Price)
+    </td>
+     
+</tr>
+}
+
+</table>
+
+

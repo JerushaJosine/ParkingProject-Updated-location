@@ -1,0 +1,125 @@
+﻿@model IEnumerable<authpark.Models.Parking>
+
+@{ ViewBag.Title = "Index"; }
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location_Table.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicalRegNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckinTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckoutTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location_Table.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParkingId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Location_Table.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.VehicalRegNo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CheckinTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CheckoutTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParkingStatus)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Location_Table.Price)
+    </td>
+    <td>
+        <script src="https://www.paypal.com/sdk/js?client-id=AXqCAkpAAN6ChBkqus8Vv2wf89a80i2onFsXole7H_eHJd_Howa3uYhHRHTbZDSF1-gH5WrSUhPDiVLh&currency=USD"></script>
+        <div id="paypal-button-container" class="paypal" data="@item.Location_Table.Price"></div>
+        <script>
+            var price;
+            paypal.Buttons({
+                // Sets up the transaction when a payment button is clicked
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: @item.Location_Table.Price,// Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                            }
+
+                        }]
+                    });
+                },
+
+                // Finalize the transaction after payer approval
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (orderData) {
+                        // Successful capture! For dev/demo purposes:
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        var transaction = orderData.purchase_units[0].payments.captures[0];
+                        $.ajax({
+                            type: 'GET',
+                            data: { id: @item.ParkingId },
+                            url: '/Parking/Checkout',
+                            success: function (result) {
+
+                               
+                            },
+                            complete: function (result) {
+                                window.location.href = "/Parking/Index";
+                                $(".overlay").hide();
+                            },
+                            error: function (err) { //console.log(JSON.stringify(err)); }
+                            }
+                        });
+                        alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                        // When ready to go live, remove the alert and show a success message within this page. For example:
+                        // var element = document.getElementById('paypal-button-container');
+                        // element.innerHTML = '';
+                        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+                    });
+                }
+            }).render('#paypal-button-container');
+
+            $(".paypal").click(function () {
+                var row = $(this).closest("tr");
+                price = row.find("td:eq(7) input").val();
+            });
+        </script>
+    </td>
+</tr>}
+
+</table>
+
+

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<authpark.Models.VaccanciesVM>
+
+@{
+    ViewBag.Title = "Vaccancies";
+}
+
+<h2>Vaccancies</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalVacancies)
+        </th>
+       <th>
+           Reserved
+        </th>
+       
+         
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalVacancies)
+        </td>
+      <td>
+            @Html.DisplayFor(modelItem => item.Reserved)
+        </td>
+     
+         
+      
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LocationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LocationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LocationId })
+        </td>
+    </tr>
+}
+
+</table>

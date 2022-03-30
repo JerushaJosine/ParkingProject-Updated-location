@@ -1,0 +1,63 @@
+﻿@model IEnumerable<authpark.Models.Parking>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicalRegNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckinTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckoutTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicalRegNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckinTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckoutTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ParkingId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ParkingId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ParkingId })
+        </td>
+    </tr>
+}
+
+</table>
